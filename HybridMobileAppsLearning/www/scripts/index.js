@@ -10,8 +10,7 @@
     function onDeviceReady() {
         // Handle the Cordova pause and resume events
         document.addEventListener('pause', onPause.bind(this), false);
-        document.addEventListener('resume', onResume.bind(this), false);
-        //test push2 to GIT
+        document.addEventListener('resume', onResume.bind(this), false);        
 
         var capturePhotoButton = document.querySelector("#capturePhoto");
         capturePhotoButton.addEventListener("click", capturePhoto, false);
