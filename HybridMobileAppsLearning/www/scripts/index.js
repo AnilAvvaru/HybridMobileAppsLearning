@@ -10,7 +10,9 @@
     function onDeviceReady() {
         // Handle the Cordova pause and resume events
         document.addEventListener('pause', onPause.bind(this), false);
-        document.addEventListener('resume', onResume.bind(this), false);        
+        document.addEventListener('resume', onResume.bind(this), false);  
+
+        // TODO: Cordova has been loaded. Perform any initialization that requires Cordova here.
 
         var capturePhotoButton = document.querySelector("#capturePhoto");
         capturePhotoButton.addEventListener("click", capturePhoto, false);
@@ -18,7 +20,8 @@
         var getPhotoFromLibButton = document.querySelector("#getPhotoFromLib");
         getPhotoFromLibButton.addEventListener("click", getPhoto, false);
 
-        // TODO: Cordova has been loaded. Perform any initialization that requires Cordova here.
+        var geoLocationCurrentPositionButton = document.querySelector("#geoLocationCurrentPosition");
+        geoLocationCurrentPositionButton.addEventListener("click", getCurrentPosition, false);
 
     };
 
@@ -32,6 +35,30 @@
     };
 })();
 
+// onSuccess Geolocation
+//
+function onGeoSuccess(position) {
+    var element = document.getElementById('geolocation');
+    element.innerHTML = 'Latitude: ' + position.coords.latitude + '<br />' +
+                        'Longitude: ' + position.coords.longitude + '<br />' +
+                        'Altitude: ' + position.coords.altitude + '<br />' +
+                        'Accuracy: ' + position.coords.accuracy + '<br />' +
+                        'Altitude Accuracy: ' + position.coords.altitudeAccuracy + '<br />' +
+                        'Heading: ' + position.coords.heading + '<br />' +
+                        'Speed: ' + position.coords.speed + '<br />' +
+                        'Timestamp: ' + position.timestamp + '<br />';
+}
+
+// onError Callback receives a PositionError object
+//
+function onGeoError(error) {
+    alert('code: ' + error.code + '\n' +
+          'message: ' + error.message + '\n');
+}
+
+function getCurrentPosition() {   
+    navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoError);
+};
 
 function onPhotoDataSuccess(imageURI) {
     console.log(imageURI); console.log("***********************log message test anil");
